@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'comments/index'
 
-  get 'comments/register'
+  post 'comments/register' => 'comments#register'
 
   resources :products
 

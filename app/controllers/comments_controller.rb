@@ -49,4 +49,17 @@ class CommentsController < ApplicationController
     end
     
   end
+  
+  def show
+    comment = Comment.new
+    word = Word.new
+    
+    @comment = Comment.all
+    @word = Word.all
+    
+    p @comment
+    p @word
+    
+  end
+  
 end

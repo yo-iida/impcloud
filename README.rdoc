@@ -1,21 +1,17 @@
-Impcloud
-====
+=Impcloud
 
-
-## Description
+== Description
 
 感想をフォームから入力すると、形態素解析を行って、キーワードごとにDBに格納する。
+
 キーワードを集計して、ワードクラウドで表示する。
 
 * 形態素解析エンジンはokuraを使用
+
   http://d.hatena.ne.jp/gnarl/20120319/1332153697
+  
 * Heroku上で動作させることを前提で構築
 
-## TODO
-
-* デザイン適用
-
-
-## Author
+== Author
 
 [yo-iida](http://yo-iida.hatenablog.com/)

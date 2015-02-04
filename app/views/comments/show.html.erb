@@ -16,6 +16,12 @@
 	<%= row.id %>,<%= row.word %>,<%= row.part %>,<%= row.created_at %><br />
 <% end %>
 </p>
+<p>@count_hash</p>
+<p>
+<% @count_hash.each do |k,v| %>
+	<%= k %>:<%= v %><br />
+<% end %>
+</p>
 
 <%= javascript_include_tag "d3.min.js", "d3.layout.cloud.js" %>
 <script>
@@ -27,11 +33,17 @@ d3.select('svg').append('text')
 	"font-size":40
 })
 .text('Loading...')	
-	
-d3.csv('ranking.csv', function(data){
-	var h = 800;
-	var w = 800;
-	data = data.splice(0, 1200); //処理wordを1200件に絞る
+
+var dataset = [
+<% @count_hash.each do |k,v| %>
+	{"count":"<%= v %>","word":"<%= k %>"},
+<% end %>
+];
+
+var update = function(data){
+	console.log(data);
+	var h = 400;
+	var w = 400;
 
 	var random = d3.random.irwinHall(2)
 
@@ -42,7 +54,7 @@ d3.csv('ranking.csv', function(data){
 	var words = data.map(function(d) {
 		return {
 			text: d.word,
-			size: sizeScale(d.count) //頻出カウントを文字サイズに反映
+			size: sizeScale(d.count/20) //頻出カウントを文字サイズに反映
 			};
 		});
 	 
@@ -80,6 +92,7 @@ d3.csv('ranking.csv', function(data){
 		})
 		.text(function(d) { return d.text; });
 	}
-	
-});
+}
+
+update(dataset);
 </script>

@@ -57,8 +57,17 @@ class CommentsController < ApplicationController
     @comment = Comment.all
     @word = Word.all
     
-    p @comment
-    p @word
+    @all_arr = []
+    @word.each do |row|
+      @all_arr << row.word
+    end
+    @index_arr = @all_arr.uniq
+    
+    @count_hash = {}
+    @index_arr.each do |row|
+      @count_hash[row] = @all_arr.count(row)
+    end
+    @count_hash.sort_by{|key,val| -val}
     
   end
   

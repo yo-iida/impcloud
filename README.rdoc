@@ -1,28 +1,21 @@
-== README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Impcloud
+====
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+## Description
+
+感想をフォームから入力すると、形態素解析を行って、キーワードごとにDBに格納する。
+キーワードを集計して、ワードクラウドで表示する。
+
+* 形態素解析エンジンはokuraを使用
+  http://d.hatena.ne.jp/gnarl/20120319/1332153697
+* Heroku上で動作させることを前提で構築
+
+## TODO
+
+* デザイン適用
+
+
+## Author
+
+[yo-iida](http://yo-iida.hatenablog.com/)

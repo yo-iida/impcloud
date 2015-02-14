@@ -1,27 +1,23 @@
 <h1>Comments#show</h1>
-<p>Find me in app/views/comments/show.html.erb</p>
 
-<p>svg</p>
 <svg></svg>
 
-<p>@comment</p>
-<p>
+<script>
+console.log("@comment");
 <% @comment.each do |row| %>
-	<%= row.id %>,<%= row.comment %>,<%= row.created_at %><br />
+	console.log("<%= row.id %>,<%= row.comment %>,<%= row.created_at %>");
 <% end %>
-</p>
-<p>@word</p>
-<p>
+
+console.log("@word");
 <% @word.each do |row| %>
-	<%= row.id %>,<%= row.word %>,<%= row.part %>,<%= row.created_at %><br />
+	console.log("<%= row.id %>,<%= row.word %>,<%= row.part %>,<%= row.created_at %>");
 <% end %>
-</p>
-<p>@count_hash</p>
-<p>
+
+console.log("@count_hash");
 <% @count_hash.each do |k,v| %>
-	<%= k %>:<%= v %><br />
+	console.log("<%= k %>:<%= v %>");
 <% end %>
-</p>
+</script>
 
 <%= javascript_include_tag "d3.min.js", "d3.layout.cloud.js" %>
 <script>
@@ -32,7 +28,7 @@ d3.select('svg').append('text')
 	fill:"black",
 	"font-size":40
 })
-.text('Loading...')	
+.text('Loading...');
 
 var dataset = [
 <% @count_hash.each do |k,v| %>
@@ -42,10 +38,12 @@ var dataset = [
 
 var update = function(data){
 	console.log(data);
-	var h = 400;
-	var w = 400;
+	
+	// 描画エリアのサイズ
+	var h = 600;
+	var w = 960;
 
-	var random = d3.random.irwinHall(2)
+	var random = d3.random.irwinHall(2);
 
 	var countMax = d3.max(data, function(d){ return d.count} );
 	var sizeScale = d3.scale.linear().domain([0, countMax]).range([10, 100])
@@ -54,7 +52,7 @@ var update = function(data){
 	var words = data.map(function(d) {
 		return {
 			text: d.word,
-			size: sizeScale(d.count/20) //頻出カウントを文字サイズに反映
+			size: sizeScale(d.count/2) //頻出カウントを文字サイズに反映
 			};
 		});
 	 
@@ -75,7 +73,7 @@ var update = function(data){
 			"height": h
 		})
 		.append("g")
-		.attr("transform", "translate(150,150)")
+		.attr("transform", "translate(" + w/2 + "," + h/2 + ")")
 		.selectAll("text")
 		.data(words)
 		.enter().append("text")
@@ -87,7 +85,7 @@ var update = function(data){
 		.attr({
 			"text-anchor":"middle",
 			"transform": function(d) {
-				return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+				return "translate(" + [d.x, d.y] + ")" + "rotate(" + d.rotate + ")";
 			}
 		})
 		.text(function(d) { return d.text; });

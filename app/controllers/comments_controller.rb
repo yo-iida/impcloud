@@ -23,30 +23,31 @@ class CommentsController < ApplicationController
       # word.left.text : 品詞
       # 品詞はword.leftとword.rightがありますが､一般的に使われる辞書(IPA辞書やNAIST辞書)では
       # 両方同じデータが入ってます
+      
+      # CSV形式にして配列化
       @word_array.push(word.surface + "," + word.left.text)
     }
     
-    @err = ''
+    # 不要な要素の削除
+    @word_array.delete("BOS/EOS,BOS/EOS")
     
-    #DBに格納
+    # コメントをDBに格納
     comment = Comment.new
     comment.comment = @str
     comment.save
+    
+    # 単語、品詞をDBに格納
     @word_array.each do |item|
       CSV.parse(item) do |row|
-        #BOS/EOSが処理されてNGになるのでこれに対応する処理が必要
-        #エラー処理も考慮する必要あり
-        if row[1] == '名詞' || row[1] == '形容詞' then
           word = Word.new
           word.word = row[0]
           word.part = row[1]
           word.save
-          @err = 'OK'
-        else
-          @err = 'NG'
-        end
       end
     end
+    
+    # 表示用アクションにリダイレクト
+    redirect_to :action => "show"
     
   end
   
@@ -55,7 +56,7 @@ class CommentsController < ApplicationController
     word = Word.new
     
     @comment = Comment.all
-    @word = Word.all
+    @word = Word.where("part in ('名詞','形容詞','動詞')")
     
     @all_arr = []
     @word.each do |row|

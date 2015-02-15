@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'comments/index'
+  get 'comments/index' => 'comments#index'
   post 'comments/register' => 'comments#register'
   get 'comments/show'
 

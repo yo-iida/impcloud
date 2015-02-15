@@ -2,8 +2,52 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-svg
-{
+@mixin vendpre($property, $value) {
+  @each $prefix in '', -webkit-, -moz- {
+    #{$prefix}#{$property}: $value;
+  }
+}
+
+.comment-form {
+  display: block;
+  margin: 200px auto;
+  width: 500px;
+  p {
+    text-align: center;
+  }
+  input {
+    border: 0;
+    padding: 5px;
+    font-size: 1.3em;
+    color: #666;
+    border: solid 1px #ccc;
+    margin: 0 5px;
+    @include vendpre(border-radius, 3px);
+  }
+  input[type=text] {
+    height: 30px;
+    width:300px;
+    @include vendpre(box-shadow, inset 0 0 4px rgba(0,0,0,0.2));
+  }
+  input[type=submit] {
+    height: 42px;
+    width: 60px;
+  }
+  .alert {
+    display: block;
+    width: 400px;
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    padding: 15px;
+    margin: 10px auto;
+    border: 1px solid transparent;
+    @include vendpre(border-radius, 4px);
+    @include vendpre(box-sizing, border-box);
+  }
+}
+
+svg {
   display: block;
   margin: 0 auto;
 }

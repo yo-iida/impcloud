@@ -1,8 +1,14 @@
 <h1>Comments#index</h1>
-<p>Find me in app/views/comments/index.html.erb</p>
 
-<form method="post" action="/comments/register">
-	感想を入力してください。
-	<input type="text" name="impression" />
-	<input type="submit" value="送信" />
-</form>
+<div class="comment-form">
+	<form method="post" action="/comments/register">
+		<p>感想を入力してください。</p>
+		<p>
+			<input type="text" name="impression" />
+			<input type="submit" value="送信" />
+		</p>
+		<% unless @err_msg.empty? then %>
+		<p class="alert"><%= @err_msg %></p>
+		<% end %>
+	</form>
+</div>

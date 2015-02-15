@@ -1,4 +1,5 @@
 <h1>Comments#show</h1>
+<%= link_to 'Index Page', '/comments/index' %>
 
 <svg></svg>
 
@@ -40,7 +41,7 @@ var update = function(data){
 	console.log(data);
 	
 	// 描画エリアのサイズ
-	var h = 600;
+	var h = 500;
 	var w = 960;
 
 	var random = d3.random.irwinHall(2);

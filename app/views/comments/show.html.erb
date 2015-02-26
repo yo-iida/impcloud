@@ -1,24 +1,14 @@
 <h1>Comments#show</h1>
 <%= link_to 'Index Page', '/comments/index' %>
 
+<div class="comment-show">
+
 <svg></svg>
 
-<script>
-console.log("@comment");
-<% @comment.each do |row| %>
-	console.log("<%= row.id %>,<%= row.comment %>,<%= row.created_at %>");
-<% end %>
+<p class="thanks">ありがとうございます。写真と鑑賞者の関係が、新たな線で結ばれました。<br />
+あなたの感想ひとつで、写真は言語世界の無限へと開かれるのです。</p>
 
-console.log("@word");
-<% @word.each do |row| %>
-	console.log("<%= row.id %>,<%= row.word %>,<%= row.part %>,<%= row.created_at %>");
-<% end %>
-
-console.log("@count_hash");
-<% @count_hash.each do |k,v| %>
-	console.log("<%= k %>:<%= v %>");
-<% end %>
-</script>
+</div>
 
 <%= javascript_include_tag "d3.min.js", "d3.layout.cloud.js" %>
 <script>
@@ -61,6 +51,7 @@ var update = function(data){
 		.words(words)
 		.rotate(function() { return Math.round(1-random()) *90; }) //ランダムに文字を90度回転
 		.font("Impact")
+		//.attr("opacity", 0)
 		.fontSize(function(d) { return d.size; })
 		.on("end", draw) //描画関数の読み込み
 		.start();
@@ -89,9 +80,29 @@ var update = function(data){
 				return "translate(" + [d.x, d.y] + ")" + "rotate(" + d.rotate + ")";
 			}
 		})
+		.attr("opacity", 0)
+		.transition()
+		.duration(1500)
+		.attr("opacity", 1.0)
 		.text(function(d) { return d.text; });
 	}
 }
 
 update(dataset);
+</script>
+<script>
+console.log("@comment");
+<% @comment.each do |row| %>
+	console.log("<%= row.id %>,<%= row.comment %>,<%= row.created_at %>");
+<% end %>
+
+console.log("@word");
+<% @word.each do |row| %>
+	console.log("<%= row.id %>,<%= row.word %>,<%= row.part %>,<%= row.created_at %>");
+<% end %>
+
+console.log("@count_hash");
+<% @count_hash.each do |k,v| %>
+	console.log("<%= k %>:<%= v %>");
+<% end %>
 </script>

@@ -47,7 +47,13 @@
   }
 }
 
-svg {
-  display: block;
-  margin: 0 auto;
+.comment-show {
+  svg {
+    display: block;
+    margin: 0 auto;
+  }
+  .thanks {
+    text-align: center;
+  }
 }
+
